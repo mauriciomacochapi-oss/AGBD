@@ -28,10 +28,14 @@ print(f"Cantidad de filas con año valido: {total_anios}")
 
 # Analisis avanzado de datos
 print("---Analisis Avanzado de Datos---")
+
+#Reutilizamos nuestro filtro avanzado 
 filtro_avanzado=df['SaleCondition'].str.contains('Nor', na=False)
 df_filtrado=df[filtro_avanzado]
+
 #filtro_avanzado va buscando los filtros, ej "df_filtrado"
 total_registros = df_filtrado['SaleCondition'].count()
+
 print(f"Cantidad de veces que aparece NORMAL: {total_registros}")
 #.2fsirve para ver  los centimos que vos queres que muestre
 suma_dinero = df_filtrado['SalePrice'].sum()
@@ -40,7 +44,18 @@ suma_dinero = df_filtrado['SalePrice'].sum()
 
 print("--Reporte Automatizado--")
 print(f"Valor total de NOR es: {suma_dinero:.2f}")
+#----ej:9-----filtro avanzado con .loc[]-------
+condicion_extra = df["SalePrice"] > 200000
 
+resultado = df.loc[
+    filtro_avanzado & condicion_extra,
+    ["SaleCondition", "SalePrice", "YearBuilt"],
+]
+
+print("\n--- Resultado del Ejercicio 9 (.loc[]) ---")
+print(resultado)
+print(f"\nFilas seleccionadas: {len(resultado)}")
+#------aca termina-----
 
 if (Default_limite_alto := suma_dinero> 500):
    print("Alerta: El volumen de mercado es Cirtico " \
@@ -134,5 +149,6 @@ plt.title("Distribucion interna: Tegnologia Avanzada", fontsize=14)
 plt.savefig("grafico_torta.png", dpi=300)
 plt.close()
 print("Grafico de torta guardado exitosamente. ")
+
 
 
